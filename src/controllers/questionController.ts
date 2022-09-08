@@ -40,5 +40,13 @@ export async function get(req: Request, res: Response) {
 }
 
 export async function getById(req: Request, res: Response) {
-  // TODO
+  const params  = req.params
+  const id :number = Number( params.id)
+  const result:any = await questionService.getQuestionsById(id)
+  
+  if (result) {
+  return res.status(200).send(result)
+  } else {
+      throw {type:"error", message:"Question could not be find"}
+  }
 }

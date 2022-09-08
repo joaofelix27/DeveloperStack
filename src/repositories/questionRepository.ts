@@ -14,3 +14,9 @@ import { prisma } from "../config/database";
  export async function getQuestions () {
     return await prisma.question.findMany();
  }
+
+ export async function getQuestionsById (id:number) {
+    return await prisma.question.findUnique({	where: {
+		id: id
+	}});
+ }

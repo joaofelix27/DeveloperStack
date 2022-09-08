@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
-import { createType } from '../generics/interfaces/interfaces';
+import { answerType, createType } from '../generics/interfaces/interfaces';
 import * as questionService from '../services/questionService'
+import * as answerService from '../services/answerService'
 
 export async function createQuestion(req: Request, res: Response) {
   const createData: createType = req.body
@@ -15,7 +16,17 @@ export async function createQuestion(req: Request, res: Response) {
 }
 
 export async function createAnswer(req: Request, res: Response) {
-  // TODO
+  const params  = req.params
+  const id :number = Number( params.id)
+  const createData: answerType = req.body
+  const {answeredBy,answer}=createData
+  const result:any = await answerService.answerQuestion(id,answeredBy,answer)
+  
+  if (result) {
+  return res.sendStatus(201)
+  } else {
+      throw {type:"error", message:"Question could not be created"}
+  }
 }
 
 export async function get(req: Request, res: Response) {

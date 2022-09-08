@@ -25,12 +25,18 @@ export async function createAnswer(req: Request, res: Response) {
   if (result) {
   return res.sendStatus(201)
   } else {
-      throw {type:"error", message:"Question could not be created"}
+      throw {type:"error", message:"Answer could not be created"}
   }
 }
 
 export async function get(req: Request, res: Response) {
-  // TODO
+  const result:any = await questionService.getQuestions()
+  
+  if (result.length) {
+  return res.status(200).send(result)
+  } else {
+      throw {type:"error", message:"Questions could not be find"}
+  }
 }
 
 export async function getById(req: Request, res: Response) {

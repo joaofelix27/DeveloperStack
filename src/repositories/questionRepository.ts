@@ -10,3 +10,7 @@ import { prisma } from "../config/database";
         }
     });
  }
+
+ export async function getQuestions () {
+    return await prisma.question.findMany();
+ }
